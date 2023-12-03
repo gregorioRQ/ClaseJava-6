@@ -4,6 +4,7 @@
  */
 package com.mycompany.models;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -23,17 +24,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="servicio")
-public class Servicio {
-    @ManyToOne
-    @JoinColumn(name="servicio_id", referencedColumnName="id")
-    private Admin admin;
-   @ManyToMany(mappedBy="servicios")
-    private List<Consumidor> consumidores;
-   @OneToOne(mappedBy="servicio")
-   private Prestador prestador;
-   @OneToMany
-   @JoinColumn(name="servicio_id", referencedColumnName="id")
-    private List<Trabajo> trabajos;
+public class Servicio implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

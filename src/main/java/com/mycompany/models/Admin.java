@@ -24,10 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="admin")
 public class Admin implements Serializable {
-    @OneToMany(mappedBy = "admin")
-    private List<Consumidor> listaConsumidores;
-    private List<Prestador> listaPrestadores;
-    private List<Servicio> listaServicios;
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -41,12 +38,17 @@ public class Admin implements Serializable {
     public Admin() {
     }
 
-    public Admin(int id, String nombre, String apellido, Date fechaNac) {
+    public Admin( int id, String nombre, String apellido, Date fechaNac) {
+       
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNac = fechaNac;
     }
+
+  
+
+
 
     public int getId() {
         return id;

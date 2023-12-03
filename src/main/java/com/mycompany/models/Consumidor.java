@@ -23,12 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="consumidor")
 public class Consumidor implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "consumidor_id", referencedColumnName="id")
-    private  Admin admin;
-    @ManyToMany
-    private List<Servicio> servicios;
-    private List<Prestador> prestadores;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -40,11 +35,8 @@ public class Consumidor implements Serializable {
     public Consumidor() {
     }
 
-    public Consumidor(int id, String nombre, String apellido) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }
+
+  
 
     public int getId() {
         return id;
@@ -56,6 +48,13 @@ public class Consumidor implements Serializable {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Consumidor(int id, String nombre, String apellido) {
+        
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
     }
 
     public void setNombre(String nombre) {

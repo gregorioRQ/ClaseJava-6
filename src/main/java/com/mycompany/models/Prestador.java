@@ -27,14 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "prestador")
 public class Prestador implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "prestador_id", referencedColumnName="id")
-    private  Admin admin;
-    @ManyToMany(mappedBy="prestadores")
-    private List<Consumidor> consumidores;
-    @OneToOne
-    @JoinColumn(name="servicio_id", referencedColumnName="id")
-    private Servicio servicio;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -69,7 +62,8 @@ public class Prestador implements Serializable {
     }
 
     public Prestador(int id, int NumDocumento, String TipoDocumento, int Cuit_Cuil, String Nombre, String Apellido, Date fechaNac, int Telefono, String Email, int Calificacion, int DiasDisponibles, int RadioCobertura, String DiasDisponible, String Experiencia) {
-       this.id = id;
+
+        this.id = id;
         this.NumDocumento = NumDocumento;
         this.TipoDocumento = TipoDocumento;
         this.Cuit_Cuil = Cuit_Cuil;
@@ -84,6 +78,10 @@ public class Prestador implements Serializable {
         this.DiasDisponible = DiasDisponible;
         this.Experiencia = Experiencia;
     }
+
+
+
+   
 
     public int getId() {
         return id;

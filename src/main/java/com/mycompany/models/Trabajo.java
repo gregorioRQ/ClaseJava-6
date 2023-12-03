@@ -4,6 +4,7 @@
  */
 package com.mycompany.models;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="trabajo")
-public class Trabajo {
+public class Trabajo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -101,6 +102,11 @@ public class Trabajo {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Trabajo{" + "id=" + id + ", nombre=" + nombre + ", tarea1=" + tarea1 + ", tarea2=" + tarea2 + ", tarea3=" + tarea3 + ", tarea4=" + tarea4 + ", precio=" + precio + '}';
     }
     
     
