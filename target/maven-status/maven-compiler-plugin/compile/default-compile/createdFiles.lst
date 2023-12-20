@@ -1,15 +1,12 @@
 com\mycompany\controladores\PersistenceController.class
 com\mycompany\models\Trabajo_.class
-com\mycompany\controladores\ServicioJpaController.class
 com\mycompany\controladores\ConsumidorJpaController.class
 com\mycompany\models\Trabajo.class
-com\mycompany\controladores\PrestadorJpaController.class
 com\mycompany\controladores\exceptions\IllegalOrphanException.class
 com\mycompany\clase6tp\Clase6TP.class
 com\mycompany\models\Servicio_.class
 com\mycompany\controladores\exceptions\PreexistingEntityException.class
 com\mycompany\models\Prestador.class
-com\mycompany\controladores\TrabajoJpaController.class
 com\mycompany\models\Consumidor_.class
 com\mycompany\models\Admin.class
 com\mycompany\controladores\AdminJpaController.class

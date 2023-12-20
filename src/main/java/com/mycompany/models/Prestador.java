@@ -32,11 +32,11 @@ public class Prestador implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Basic
-    private int NumDocumento;
+    private long NumDocumento;
     @Basic
     private String TipoDocumento;
     @Basic
-    private int Cuit_Cuil;
+    private long Cuit_Cuil;
     @Basic
     private String Nombre;
     @Basic
@@ -44,7 +44,7 @@ public class Prestador implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaNac;
     @Basic
-    private int Telefono;
+    private long Telefono;
     @Basic
     private String Email;
     @Basic
@@ -57,12 +57,13 @@ public class Prestador implements Serializable {
     private String DiasDisponible;
     @Basic
     private String Experiencia;
+    @OneToOne
+    private Servicio servicio;
 
     public Prestador() {
     }
 
-    public Prestador(int id, int NumDocumento, String TipoDocumento, int Cuit_Cuil, String Nombre, String Apellido, Date fechaNac, int Telefono, String Email, int Calificacion, int DiasDisponibles, int RadioCobertura, String DiasDisponible, String Experiencia) {
-
+    public Prestador(int id, long NumDocumento, String TipoDocumento, long Cuit_Cuil, String Nombre, String Apellido, Date fechaNac, long Telefono, String Email, int Calificacion, int DiasDisponibles, int RadioCobertura, String DiasDisponible, String Experiencia, Servicio servicio) {
         this.id = id;
         this.NumDocumento = NumDocumento;
         this.TipoDocumento = TipoDocumento;
@@ -77,11 +78,40 @@ public class Prestador implements Serializable {
         this.RadioCobertura = RadioCobertura;
         this.DiasDisponible = DiasDisponible;
         this.Experiencia = Experiencia;
+        this.servicio = servicio;
     }
 
+    public long getNumDocumento() {
+        return NumDocumento;
+    }
 
+    public void setNumDocumento(long NumDocumento) {
+        this.NumDocumento = NumDocumento;
+    }
 
-   
+    public long getCuit_Cuil() {
+        return Cuit_Cuil;
+    }
+
+    public void setCuit_Cuil(long Cuit_Cuil) {
+        this.Cuit_Cuil = Cuit_Cuil;
+    }
+
+    public long getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(long Telefono) {
+        this.Telefono = Telefono;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
 
     public int getId() {
         return id;
@@ -91,9 +121,6 @@ public class Prestador implements Serializable {
         this.id = id;
     }
 
-    public int getNumDocumento() {
-        return NumDocumento;
-    }
 
     public void setNumDocumento(int NumDocumento) {
         this.NumDocumento = NumDocumento;
@@ -107,10 +134,7 @@ public class Prestador implements Serializable {
         this.TipoDocumento = TipoDocumento;
     }
 
-    public int getCuit_Cuil() {
-        return Cuit_Cuil;
-    }
-
+  
     public void setCuit_Cuil(int Cuit_Cuil) {
         this.Cuit_Cuil = Cuit_Cuil;
     }
@@ -137,10 +161,6 @@ public class Prestador implements Serializable {
 
     public void setFechaNac(Date fechaNac) {
         this.fechaNac = fechaNac;
-    }
-
-    public int getTelefono() {
-        return Telefono;
     }
 
     public void setTelefono(int Telefono) {

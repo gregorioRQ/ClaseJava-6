@@ -25,13 +25,10 @@ public class ConsumidorJpaController implements Serializable {
     public ConsumidorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
-    public ConsumidorJpaController() {
-        emf = Persistence.createEntityManagerFactory("clase06JPAPU");
+    
+     public ConsumidorJpaController() {
+         emf = Persistence.createEntityManagerFactory("clase06JPAPU");
     }
-    
-    
-    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {

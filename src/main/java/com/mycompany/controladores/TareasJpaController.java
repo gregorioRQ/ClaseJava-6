@@ -10,8 +10,8 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.mycompany.models.Consumidor;
 import com.mycompany.models.Servicio;
+import com.mycompany.models.Tareas;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,13 +21,13 @@ import javax.persistence.Persistence;
  *
  * @author PC
  */
-public class ServicioJpaController implements Serializable {
+public class TareasJpaController implements Serializable {
 
-    public ServicioJpaController(EntityManagerFactory emf) {
+    public TareasJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-    public ServicioJpaController() {
+    public TareasJpaController() {
         emf = Persistence.createEntityManagerFactory("clase06JPAPU");
     }
     
@@ -39,20 +39,20 @@ public class ServicioJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Servicio servicio) {
+    public void create(Tareas tareas) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Consumidor consumidor = servicio.getConsumidor();
-            if (consumidor != null) {
-                consumidor = em.getReference(consumidor.getClass(), consumidor.getId());
-                servicio.setConsumidor(consumidor);
+            Servicio servicio = tareas.getServicio();
+            if (servicio != null) {
+                servicio = em.getReference(servicio.getClass(), servicio.getId());
+                tareas.setServicio(servicio);
             }
-            em.persist(servicio);
-            if (consumidor != null) {
-                consumidor.getListaServicios().add(servicio);
-                consumidor = em.merge(consumidor);
+            em.persist(tareas);
+            if (servicio != null) {
+                servicio.getListaTareas().add(tareas);
+                servicio = em.merge(servicio);
             }
             em.getTransaction().commit();
         } finally {
@@ -62,34 +62,34 @@ public class ServicioJpaController implements Serializable {
         }
     }
 
-    public void edit(Servicio servicio) throws NonexistentEntityException, Exception {
+    public void edit(Tareas tareas) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Servicio persistentServicio = em.find(Servicio.class, servicio.getId());
-            Consumidor consumidorOld = persistentServicio.getConsumidor();
-            Consumidor consumidorNew = servicio.getConsumidor();
-            if (consumidorNew != null) {
-                consumidorNew = em.getReference(consumidorNew.getClass(), consumidorNew.getId());
-                servicio.setConsumidor(consumidorNew);
+            Tareas persistentTareas = em.find(Tareas.class, tareas.getId());
+            Servicio servicioOld = persistentTareas.getServicio();
+            Servicio servicioNew = tareas.getServicio();
+            if (servicioNew != null) {
+                servicioNew = em.getReference(servicioNew.getClass(), servicioNew.getId());
+                tareas.setServicio(servicioNew);
             }
-            servicio = em.merge(servicio);
-            if (consumidorOld != null && !consumidorOld.equals(consumidorNew)) {
-                consumidorOld.getListaServicios().remove(servicio);
-                consumidorOld = em.merge(consumidorOld);
+            tareas = em.merge(tareas);
+            if (servicioOld != null && !servicioOld.equals(servicioNew)) {
+                servicioOld.getListaTareas().remove(tareas);
+                servicioOld = em.merge(servicioOld);
             }
-            if (consumidorNew != null && !consumidorNew.equals(consumidorOld)) {
-                consumidorNew.getListaServicios().add(servicio);
-                consumidorNew = em.merge(consumidorNew);
+            if (servicioNew != null && !servicioNew.equals(servicioOld)) {
+                servicioNew.getListaTareas().add(tareas);
+                servicioNew = em.merge(servicioNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = servicio.getId();
-                if (findServicio(id) == null) {
-                    throw new NonexistentEntityException("The servicio with id " + id + " no longer exists.");
+                int id = tareas.getId();
+                if (findTareas(id) == null) {
+                    throw new NonexistentEntityException("The tareas with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -105,19 +105,19 @@ public class ServicioJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Servicio servicio;
+            Tareas tareas;
             try {
-                servicio = em.getReference(Servicio.class, id);
-                servicio.getId();
+                tareas = em.getReference(Tareas.class, id);
+                tareas.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The servicio with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The tareas with id " + id + " no longer exists.", enfe);
             }
-            Consumidor consumidor = servicio.getConsumidor();
-            if (consumidor != null) {
-                consumidor.getListaServicios().remove(servicio);
-                consumidor = em.merge(consumidor);
+            Servicio servicio = tareas.getServicio();
+            if (servicio != null) {
+                servicio.getListaTareas().remove(tareas);
+                servicio = em.merge(servicio);
             }
-            em.remove(servicio);
+            em.remove(tareas);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -126,19 +126,19 @@ public class ServicioJpaController implements Serializable {
         }
     }
 
-    public List<Servicio> findServicioEntities() {
-        return findServicioEntities(true, -1, -1);
+    public List<Tareas> findTareasEntities() {
+        return findTareasEntities(true, -1, -1);
     }
 
-    public List<Servicio> findServicioEntities(int maxResults, int firstResult) {
-        return findServicioEntities(false, maxResults, firstResult);
+    public List<Tareas> findTareasEntities(int maxResults, int firstResult) {
+        return findTareasEntities(false, maxResults, firstResult);
     }
 
-    private List<Servicio> findServicioEntities(boolean all, int maxResults, int firstResult) {
+    private List<Tareas> findTareasEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Servicio.class));
+            cq.select(cq.from(Tareas.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -150,20 +150,20 @@ public class ServicioJpaController implements Serializable {
         }
     }
 
-    public Servicio findServicio(int id) {
+    public Tareas findTareas(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Servicio.class, id);
+            return em.find(Tareas.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getServicioCount() {
+    public int getTareasCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Servicio> rt = cq.from(Servicio.class);
+            Root<Tareas> rt = cq.from(Tareas.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

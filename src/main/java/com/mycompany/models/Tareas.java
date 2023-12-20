@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="trabajo")
-public class Trabajo implements Serializable {
+public class Tareas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -34,11 +35,14 @@ public class Trabajo implements Serializable {
     private String tarea4;
     @Basic
     private double precio;
+    
+    @ManyToOne
+    private Servicio servicio;
 
-    public Trabajo() {
+    public Tareas() {
     }
 
-    public Trabajo(int id, String nombre, String tarea1, String tarea2, String tarea3, String tarea4, double precio) {
+    public Tareas(int id, String nombre, String tarea1, String tarea2, String tarea3, String tarea4, double precio, Servicio servicio) {
         this.id = id;
         this.nombre = nombre;
         this.tarea1 = tarea1;
@@ -46,7 +50,18 @@ public class Trabajo implements Serializable {
         this.tarea3 = tarea3;
         this.tarea4 = tarea4;
         this.precio = precio;
+        this.servicio = servicio;
     }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
+    
 
     public int getId() {
         return id;
@@ -102,13 +117,5 @@ public class Trabajo implements Serializable {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-
-    @Override
-    public String toString() {
-        return "Trabajo{" + "id=" + id + ", nombre=" + nombre + ", tarea1=" + tarea1 + ", tarea2=" + tarea2 + ", tarea3=" + tarea3 + ", tarea4=" + tarea4 + ", precio=" + precio + '}';
-    }
-    
-    
-    
+    }    
 }

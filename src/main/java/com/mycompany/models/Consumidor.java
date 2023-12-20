@@ -4,6 +4,7 @@
  */
 package com.mycompany.models;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Basic;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,12 +33,27 @@ public class Consumidor implements Serializable {
     private String nombre;
     @Basic
     private String apellido;
+    @OneToMany(mappedBy="consumidor")
+    private ArrayList<Servicio> ListaServicios;
+ 
 
     public Consumidor() {
     }
 
+    public Consumidor(int id, String nombre, String apellido, ArrayList<Servicio> ListaServicios) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.ListaServicios = ListaServicios;
+    }
 
-  
+    public ArrayList<Servicio> getListaServicios() {
+        return ListaServicios;
+    }
+
+    public void setListaServicios(ArrayList<Servicio> ListaServicios) {
+        this.ListaServicios = ListaServicios;
+    }
 
     public int getId() {
         return id;

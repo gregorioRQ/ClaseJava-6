@@ -25,12 +25,10 @@ public class PrestadorJpaController implements Serializable {
     public PrestadorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
-    public PrestadorJpaController() {
-        emf = Persistence.createEntityManagerFactory("clase06JPAPU");
+    
+     public PrestadorJpaController() {
+         emf = Persistence.createEntityManagerFactory("clase06JPAPU");
     }
-    
-    
     
     private EntityManagerFactory emf = null;
 
